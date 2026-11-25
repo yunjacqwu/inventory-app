@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pemakaian Barang</title>
     <link rel="stylesheet" href="./css/sparepart/editpemakaian.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <script src="/js/layout.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <a href="./index.html" class="back-button">← Kembali</a>
-
-        <div class="header">
+    <header class="page-head">
+        <div>
             <h1>Edit Pemakaian Barang</h1>
             <p>Kelola dan edit data pemakaian sparepart</p>
         </div>
+    </header>
+    <div class="page">
 
-        <!-- Filter Box -->
-        <div class="filter-box">
-            <h2>Filter Data</h2>
+        <!-- Filter -->
+        <div class="toolbar">
             <div class="filter-controls">
                 <div class="filter-group">
                     <label for="filterType">Pilih Filter</label>
@@ -39,9 +44,9 @@
 
         <!-- Data Box -->
         <div class="data-box">
-            <h2>Data Pemakaian</h2>
-            <div class="data-info">
-                <span class="data-count">Total: <strong id="totalData">0</strong></span>
+            <div class="data-head">
+                <h2>Data Pemakaian</h2>
+                <span class="data-count">Total <strong id="totalData">0</strong></span>
             </div>
 
             <div class="table-container">

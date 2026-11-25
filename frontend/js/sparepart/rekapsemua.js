@@ -1,4 +1,4 @@
-    const API_BASE_URL = 'http://localhost:3000';
+    const API_BASE_URL = '';
     
     const CONFIG = {
       columnCounts: { stok: 9, kendaraan: 11, vendor: 8, pemakaian_vendor: 11 },
@@ -204,9 +204,9 @@
             const vendorId = state.vendorNameToId[$('vendorFilter').value] || '';
             const barang = $('barangFilter').value;
             const satuan = $('satuanFilter').value;
-            const dateParams = $('filterType').value !== 'hari' ? `&start=${dateRange.start}&end=${dateRange.end}` : '';
+            const dateParams = $('filterType').value !== 'hari' ? `&start=${encodeURIComponent(dateRange.start)}&end=${encodeURIComponent(dateRange.end)}` : '';
             
-            url = `/rekap?type=stok&vendor=${vendorId}&barang=${barang}&satuan=${satuan}${dateParams}`;
+            url = `/rekap?type=stok&vendor=${encodeURIComponent(vendorId)}&barang=${encodeURIComponent(barang)}&satuan=${encodeURIComponent(satuan)}${dateParams}`;
             state.currentFilter = {
               vendor: vendorId,
               barang,
@@ -228,7 +228,7 @@
             const jenisBarang = $('jenisBarangFilter').value;
             const vendorId = state.vendorNameToId[$('vendorFilter').value] || '';
             
-            url = `/rekap?type=kendaraan&start=${dateRange.start}&end=${dateRange.end}${kendaraanId ? `&kendaraan=${kendaraanId}` : ''}${jenisBarang !== 'semua' ? `&jenis_barang=${jenisBarang}` : ''}${vendorId ? `&vendor=${vendorId}` : ''}`;
+            url = `/rekap?type=kendaraan&start=${encodeURIComponent(dateRange.start)}&end=${encodeURIComponent(dateRange.end)}${kendaraanId ? `&kendaraan=${encodeURIComponent(kendaraanId)}` : ''}${jenisBarang !== 'semua' ? `&jenis_barang=${encodeURIComponent(jenisBarang)}` : ''}${vendorId ? `&vendor=${encodeURIComponent(vendorId)}` : ''}`;
             
             state.currentFilter = {
               kendaraan: kendaraanId,
@@ -250,7 +250,7 @@
             const vendorId = state.vendorNameToId[$('vendorFilter').value] || '';
             const satuan = $('satuanFilter').value;
             
-            url = `/rekap?type=vendor&vendor=${vendorId}&start=${dateRange.start}&end=${dateRange.end}&satuan=${satuan}`;
+            url = `/rekap?type=vendor&vendor=${encodeURIComponent(vendorId)}&start=${encodeURIComponent(dateRange.start)}&end=${encodeURIComponent(dateRange.end)}&satuan=${encodeURIComponent(satuan)}`;
             
             state.currentFilter = {
               vendor: vendorId,
@@ -271,7 +271,7 @@
             const barang = $('barangFilter').value;
             const kendaraanId = state.kendaraanLabelToId[$('kendaraanFilter').value] || '';
             
-            url = `/pemakaian_vendor?start=${dateRange.start}&end=${dateRange.end}&vendor=${vendorId}&barang=${barang}&kendaraan=${kendaraanId}`;
+            url = `/pemakaian_vendor?start=${encodeURIComponent(dateRange.start)}&end=${encodeURIComponent(dateRange.end)}&vendor=${encodeURIComponent(vendorId)}&barang=${encodeURIComponent(barang)}&kendaraan=${encodeURIComponent(kendaraanId)}`;
             
             state.currentFilter = {
               vendor: vendorId,
@@ -928,7 +928,7 @@
         };
 
         try {
-          const data = await api.fetch(`/rekap?type=vendor&start=${today}&end=${today}&satuan=semua`);
+          const data = await api.fetch(`/rekap?type=vendor&start=${encodeURIComponent(today)}&end=${encodeURIComponent(today)}&satuan=semua`);
           state.allData = data;
           dataHandler.renderTable(dataHandler.applyFilters(data));
         } catch (error) {

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000';
+const API_URL = '';
 let allData = [];
 let filteredData = [];
 let currentEditId = null;
@@ -57,7 +57,7 @@ function renderTable(data) {
             <td>${formatDate(item.tanggal)}</td>
             <td>${item.nama_sparepart || '-'}</td>
             <td>${item.no_seri || '-'}</td>
-            <td>${item.jumlah}</td>
+            <td>${Number(item.jumlah)}</td>
             <td>${item.satuan}</td>
             <td>${item.dt_mobil && item.plat ? `${item.dt_mobil} - ${item.plat}` : '-'}</td>
             <td>${item.penanggung_jawab || '-'}</td>
@@ -127,7 +127,7 @@ async function editData(id) {
         document.getElementById('editId').value = data.id;
         document.getElementById('editSparepart').value = `${data.nama_sparepart || '-'} - ${data.no_seri || '-'}`;
         document.getElementById('editKendaraan').value = data.dt_mobil && data.plat ? `${data.dt_mobil} - ${data.plat}` : '-';
-        document.getElementById('editJumlah').value = data.jumlah;
+        document.getElementById('editJumlah').value = Number(data.jumlah);
         document.getElementById('editSatuan').value = data.satuan;
         document.getElementById('editPenanggungJawab').value = data.penanggung_jawab || '-';
         document.getElementById('editTanggal').value = data.tanggal.split('T')[0];

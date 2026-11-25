@@ -1,0 +1,50 @@
+/* Sidebar navigasi bersama. Dimuat di setiap halaman lewat js/layout.js */
+.app-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 20px 0;
+    background: #1f2a37;
+    color: #d6dde6;
+    font-family: var(--font);
+    z-index: 100;
+}
+.app-nav .brand {
+    padding: 0 20px 16px;
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    border-bottom: 1px solid #2f3b4b;
+}
+.app-nav .group {
+    padding: 14px 20px 4px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #8fa0b5;
+}
+.app-nav a {
+    display: block;
+    padding: 8px 20px;
+    border-left: 3px solid transparent;
+    color: #d6dde6;
+    text-decoration: none;
+    font-size: 14px;
+}
+.app-nav a:hover { background: #2a3648; color: #fff; }
+.app-nav a.active {
+    background: #2a3648;
+    color: #fff;
+    border-left-color: #2a78d6;
+}
+body.with-nav { margin: 0 0 0 220px; }
+
+@media (max-width: 760px) {
+    .app-nav { position: static; width: auto; }
+    body.with-nav { margin: 0; }
+}
