@@ -13,7 +13,7 @@
     // ============================================
     async function loadVendors() {
       try {
-        const res = await fetch("http://localhost:3000/vendor");
+        const res = await fetch("/vendor");
         const vendors = await res.json();
         // Ganti isi vendorFilter, vendorFilterStok, dan vendorFilterPemakaianPerMasuk menjadi dropdown
         const vendorSelect1 = document.getElementById("vendorFilter");
@@ -48,7 +48,7 @@
 
     async function loadKendaraan() {
       try {
-        const res = await fetch("http://localhost:3000/kendaraan");
+        const res = await fetch("/kendaraan");
         const kendaraans = await res.json();
         const kendaraanList = document.getElementById("kendaraanFilterList");
         const kendaraanListData = document.getElementById("kendaraanFilterListData");
@@ -409,7 +409,7 @@
         reportType: 'penukaran'
       };
 
-      const res = await fetch(`http://localhost:3000/rekap_ban?start=${startDate}&end=${endDate}&vendor=${vendorId}&kendaraan=${kendaraanId}`);
+      const res = await fetch(`/rekap_ban?start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}&vendor=${encodeURIComponent(vendorId)}&kendaraan=${encodeURIComponent(kendaraanId)}`);
       const data = await res.json();
       renderTablePenukaran(data);
     }
@@ -428,7 +428,7 @@ async function applyFilterDataKendaraan() {
     reportType: 'data_kendaraan'
   };
 
-  const res = await fetch(`http://localhost:3000/data_kendaraan?kendaraan=${encodeURIComponent(kendaraanParam)}`);
+  const res = await fetch(`/data_kendaraan?kendaraan=${encodeURIComponent(kendaraanParam)}`);
   const data = await res.json();
   renderTableDataKendaraan(data);
 }
@@ -477,7 +477,7 @@ async function applyFilterDataKendaraan() {
         endpoint = 'stok_ban';
       }
 
-      const res = await fetch(`http://localhost:3000/${endpoint}?start=${startDate}&end=${endDate}&vendor=${vendorId}&merkBan=${merkBan}`);
+      const res = await fetch(`/${endpoint}?start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}&vendor=${encodeURIComponent(vendorId)}&merkBan=${encodeURIComponent(merkBan)}`);
       const data = await res.json();
       renderTableStok(data);
     }
@@ -508,7 +508,7 @@ async function applyFilterDataKendaraan() {
         reportType: 'pemakaian_per_masuk'
       };
 
-      const res = await fetch(`http://localhost:3000/pemakaian_ban_per_masuk?start=${startDate}&end=${endDate}&vendor=${vendorId}`);
+      const res = await fetch(`/pemakaian_ban_per_masuk?start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}&vendor=${encodeURIComponent(vendorId)}`);
       const data = await res.json();
       renderTablePemakaianPerMasuk(data);
     }

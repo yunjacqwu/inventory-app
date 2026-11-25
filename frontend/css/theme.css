@@ -1,0 +1,230 @@
+/* Tema modern bersama untuk semua halaman. Dimuat setelah CSS halaman, sebelum layout.css. */
+:root {
+    --font: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --text: #1d1d1f;
+    --muted: #6e6e73;
+    --border: #e5e5ea;
+    --accent: #0a84ff;
+    --accent-ring: rgba(10, 132, 255, 0.22);
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+html, body, input, select, textarea, button, table {
+    font-family: var(--font) !important;
+}
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4 {
+    color: var(--text);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+h2 { font-size: 22px; }
+h3 { font-size: 17px; }
+label {
+    color: #424245;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Kartu / panel */
+.sidebar, .main-content, .form-container, .table-container, .filter-container,
+.summary-container, .export-container, .card, .modal-content, .container, .panel {
+    background: var(--card);
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.table-container, .main-content { overflow-x: auto; }
+
+/* Input */
+input[type="text"], input[type="number"], input[type="date"], input[type="email"],
+input[type="password"], input[type="search"], select, textarea {
+    background: #fff;
+    border: 1px solid #d2d2d7;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-ring);
+}
+
+/* Tombol: bentuk dan ritme seragam; warna tiap tombol tetap dari halamannya */
+button, .btn, .btn-back, .btn-reset, .btn-cancel, .btn-export, .btn-export-pdf,
+.btn-success, .btn-primary, .btn-delete-modal {
+    border: none;
+    border-radius: 10px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.08s ease, opacity 0.15s ease, background-color 0.15s ease;
+}
+button:hover, .btn:hover { opacity: 0.9; }
+button:active, .btn:active { transform: scale(0.98); }
+
+/* Tabel */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+}
+th {
+    background: #f5f5f7;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+td {
+    padding: 12px 14px;
+    border: none;
+    border-bottom: 1px solid #f0f0f3;
+    color: var(--text);
+}
+tbody tr:hover td { background: #fafafc; }
+tbody tr:last-child td { border-bottom: none; }
+
+/* Paginasi */
+.pagination button, .pagination a {
+    border-radius: 8px;
+    padding: 6px 12px;
+    margin: 0 2px;
+}
+
+/* ===== Layout halaman: form di atas (2 kolom), tabel/daftar di bawah dengan lebar penuh ===== */
+.container-flex {
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: none !important;
+    box-sizing: border-box;
+    align-items: stretch;
+}
+.container-flex > .sidebar,
+.container-flex > .main-content {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: none !important;
+    box-sizing: border-box;
+    padding: 24px !important;
+}
+/* Form dibagi 2 kolom. Label selalu bersama input-nya (break-after: avoid). */
+.container-flex > .sidebar form {
+    columns: 2 280px;
+    column-gap: 32px;
+}
+.container-flex > .sidebar form > * { break-inside: avoid; }
+.container-flex > .sidebar form > label {
+    display: block;
+    break-after: avoid;
+    margin: 0 0 6px;
+}
+.container-flex > .sidebar form > input:not([type="hidden"]),
+.container-flex > .sidebar form > select,
+.container-flex > .sidebar form > textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 16px;
+}
+.container-flex > .sidebar form > button,
+.container-flex > .sidebar form > .btn,
+.container-flex > .sidebar form > .button-group,
+.container-flex > .sidebar form > .form-actions {
+    column-span: all;
+    display: inline-block;
+    margin-top: 8px;
+}
+.container-flex > .sidebar h2,
+.container-flex > .main-content h2,
+.container-flex > .main-content h3 { margin-top: 0; }
+
+/* Sel tabel tidak memecah nama jadi banyak baris */
+td { white-space: normal; vertical-align: middle; }
+
+/* Ruang lebih rapat supaya tabel lebar tetap muat di layar laptop (1366px) */
+body.with-nav { padding: 24px 28px !important; }
+table { font-size: 13px; }
+th { font-size: 11px; padding: 10px 9px; }
+td { padding: 10px 9px; }
+.container-flex { gap: 16px; }
+
+/* Sidebar lebih ramping, tombol tabel lebih kompak */
+body.with-nav { margin-left: 220px !important; padding: 22px 24px !important; }
+.container-flex > .sidebar, .container-flex > .main-content { padding: 20px !important; }
+td .btn, td button, td .btn-edit, td .btn-delete {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+}
+/* Kolom terakhir (biasanya Aksi) tetap terlihat saat tabel digeser */
+th:last-child, td:last-child {
+    position: sticky;
+    right: 0;
+    background: #fff;
+    box-shadow: -10px 0 10px -10px rgba(0, 0, 0, 0.08);
+}
+th:last-child { background: #f5f5f7; }
+tbody tr:hover td:last-child { background: #fafafc; }
+@media (max-width: 760px) {
+    body.with-nav { margin-left: 0 !important; }
+}
+
+/* ===== Header halaman dan judul kartu: bentuk seragam di semua halaman ===== */
+.page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 18px;
+}
+.page-head h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text);
+}
+.page-head p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.page-status { font-size: 13px; color: var(--muted); }
+
+/* Judul di dalam kartu: h2 dan h3 ukurannya sama */
+.sidebar h2, .sidebar h3, .main-content h2, .main-content h3,
+.data-box h2, .toolbar h2, .filter-container h2, .filter-container h3,
+.summary-container h2, .export-container h2, .form-container h2, .form-container h3,
+.card h2, .card h3, .table-container h2, .table-container h3, .modal-header h3 {
+    margin: 0 0 14px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+h4 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: #424245; }

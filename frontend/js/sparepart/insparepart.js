@@ -29,7 +29,7 @@ function formatQuantity(num) {
 
 // ===== LOAD VENDOR =====
 async function loadVendors() {
-    const res = await fetch("http://localhost:3000/vendor");
+    const res = await fetch("/vendor");
     const data = await res.json();
     const vendorList = document.getElementById("vendorList");
     vendorList.innerHTML = '';
@@ -44,7 +44,7 @@ async function loadVendors() {
 
 // ===== LOAD SPAREPART =====
 async function loadSparepart() {
-    const res = await fetch("http://localhost:3000/sparepart");
+    const res = await fetch("/sparepart");
     let data = await res.json();
     if (!Array.isArray(data)) data = [];
     sparepartData = data;
@@ -175,7 +175,7 @@ form.addEventListener("submit", async function(e) {
     };
 
     // Hanya POST (insert baru), tidak ada PUT (edit) di sini
-    const res = await fetch("http://localhost:3000/sparepart", {
+    const res = await fetch("/sparepart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -228,8 +228,8 @@ async function editSparepart(id) {
     try {
         // ambil data dari kedua endpoint
         const [sparepartRes, barangMasukRes] = await Promise.all([
-            fetch(`http://localhost:3000/sparepart/${id}`),
-            fetch(`http://localhost:3000/barang_masuk/${id}`)
+            fetch(`/sparepart/${id}`),
+            fetch(`/barang_masuk/${id}`)
         ]);
 
         if (!sparepartRes.ok || !barangMasukRes.ok) {
@@ -326,12 +326,12 @@ async function saveBothIndependently() {
     try {
         // Kirim PUT ke kedua endpoint secara terpisah
         const [resBM, resSP] = await Promise.all([
-            fetch(`http://localhost:3000/barang_masuk/${bm_id.value}`, {
+            fetch(`/barang_masuk/${bm_id.value}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payloadBM)
             }),
-            fetch(`http://localhost:3000/sparepart/${sp_id.value}`, {
+            fetch(`/sparepart/${sp_id.value}`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payloadSP)
@@ -398,8 +398,8 @@ async function deleteSparepart(id) {
     try {
         // Fetch data from both tables
         const [sparepartRes, barangMasukRes] = await Promise.all([
-            fetch(`http://localhost:3000/sparepart/${id}`),
-            fetch(`http://localhost:3000/barang_masuk/${id}`)
+            fetch(`/sparepart/${id}`),
+            fetch(`/barang_masuk/${id}`)
         ]);
 
         if (!sparepartRes.ok || !barangMasukRes.ok) {
@@ -442,7 +442,7 @@ Data Barang Masuk:
         if (!confirm(message)) return;
 
         // Proceed with delete
-        const res = await fetch(`http://localhost:3000/sparepart/${id}`, { method: "DELETE" });
+        const res = await fetch(`/sparepart/${id}`, { method: "DELETE" });
         const result = await res.json();
         alert(result.message);
         loadSparepart();
